@@ -1,0 +1,183 @@
+1.
+
+select titulo ,ano  from filmes 
+where ano >= 2000
+
+
+2.
+
+select ano, titulo  from filmes f
+left join genero_filme gf on f.id = gf.filme_id 
+left join generos g on g.id = gf.genero_id 
+where g.descricao like 'Comédia'
+
+
+3.
+
+select distinct  p.nome from pessoas p 
+left join creditos c on p.id = c.pessoa_id 
+left join tipos t  on t.id  = c.tipo_id 
+where t.descricao = 'Direção'
+
+4. 
+select distinct  p.nome from pessoas p 
+left join creditos c on p.id = c.pessoa_id 
+left join tipos t  on t.id  = c.tipo_id 
+where t.descricao = 'Atuação'
+
+
+5.
+
+select f.titulo, p.nome, c.tipo_id  from filmes f
+left join creditos c ON c.filme_id = f.id 
+left join pessoas p on p.id = c.pessoa_id
+left join tipos t on t.id = c.tipo_id 
+where t.descricao = 'Direção'
+
+
+6.
+
+select p.nome from pessoas p 
+left join creditos c on p.id = c.pessoa_id 
+left join tipos t  on t.id  = c.tipo_id 
+left join filmes f on f.id = c.filme_id 
+where t.descricao = 'Atuação' and p.sexo = 'Feminino' and f.titulo ='Forest Gump'
+
+
+7.
+
+select f.titulo, f.ano from filmes f
+left join creditos c ON c.filme_id = f.id 
+left join pessoas p on p.id = c.pessoa_id 
+where p.nome = 'Alfred Hitchcock'
+
+
+8. 
+
+select f.titulo from filmes f
+left join creditos c ON c.filme_id = f.id 
+left join pessoas p on p.id = c.pessoa_id
+left join tipos t on t.id = c.tipo_id 
+where t.descricao = 'Atuação' and p.nome = 'Marlon Brando'
+
+
+9.
+
+select distinct lingua, (select count(l2.lingua) from linguas l2 where l2.lingua = l.lingua) from linguas l
+
+
+10.
+
+select g.descricao,(select count(gf.filme_id) from genero_filme gf where gf.genero_id = g.id  ) from generos g 
+
+
+11.
+
+SELECT COUNT(gf.genero_id) as var, (select g.descricao  from generos g where g.id = gf.genero_id) FROM genero_filme gf 
+GROUP BY gf.genero_id  
+ORDER BY var DESC 
+LIMIT 1
+
+
+12.
+
+select f.*  from filmes f 
+left join creditos c on c.filme_id = f.id 
+left join pessoas p on p.id = c.pessoa_id 
+left join tipos t on c.tipo_id = t.id 
+where p.nome = 'Quentin Jerome Tarantino' and (t.descricao = 'Direção' or t.descricao ='Atuação')
+group by f.id 
+having count(f.id) = 2
+
+
+13. 
+
+select  (avg( age(p.data_nasc))) from pessoas p 
+left join creditos c ON c.pessoa_id = p.id  
+left join genero_filme gf on c.filme_id  = gf.filme_id 
+left join generos g  on g.id = gf.genero_id 
+where g.descricao = 'Comédia'  
+
+
+14.
+
+select count (filme_id), l.lingua  from linguas l 
+group by l.lingua  
+having count (filme_id) = (select count(f.id) from filmes f)
+
+
+15.
+
+(SELECT p.nome,age(p.data_nasc)  FROM pessoas p 
+left join creditos c ON c.pessoa_id = p.id 
+left join tipos t on c.tipo_id = t.id 
+WHERE t.descricao = 'Direção'
+ORDER BY p.data_nasc asc
+LIMIT 1)
+
+UNION ALL
+
+(SELECT p.nome,age(p.data_nasc)  FROM pessoas p 
+left join creditos c ON c.pessoa_id = p.id 
+left join tipos t on c.tipo_id = t.id 
+WHERE t.descricao = 'Direção'
+ORDER BY p.data_nasc  DESC
+LIMIT 1)
+
+
+16.
+
+(SELECT p.nome,age(p.data_nasc)  FROM pessoas p 
+left join creditos c ON c.pessoa_id = p.id 
+left join tipos t on c.tipo_id = t.id 
+WHERE t.descricao = 'Atuação'
+ORDER BY p.data_nasc asc
+LIMIT 1)
+
+UNION ALL
+
+(SELECT p.nome,age(p.data_nasc)  FROM pessoas p 
+left join creditos c ON c.pessoa_id = p.id 
+left join tipos t on c.tipo_id = t.id 
+WHERE t.descricao = 'Atuação'
+ORDER BY p.data_nasc  DESC
+LIMIT 1)
+
+
+17.
+
+select f.*, count(c.pessoa_id) from filmes f 
+left join creditos c on f.id = c.filme_id 
+group by f.id 
+order by count(c.pessoa_id) desc 
+limit 1
+
+
+18.
+
+(select (count(p.nome)) from filmes f 
+left join creditos c on c.filme_id = f.id 
+left join pessoas p on p.id  = c.pessoa_id 
+where f.titulo = 'Psyco' and p.sexo = 'Feminino')
+
+union all 
+
+(select count(p.nome) from filmes f 
+left join creditos c on c.filme_id = f.id 
+left join pessoas p on p.id  = c.pessoa_id 
+where f.titulo = 'Psyco' and p.sexo = 'Masculino')
+
+union all 
+
+(select count(p.nome) from filmes f 
+left join creditos c on c.filme_id = f.id 
+left join pessoas p on p.id  = c.pessoa_id 
+left join tipos t  on c.tipo_id = t.id 
+where f.titulo = 'Psyco' and p.sexo = 'Feminino' and t.descricao = 'Atuação')
+union all 
+
+(select count(p.nome) from filmes f 
+left join creditos c on c.filme_id = f.id 
+left join pessoas p on p.id  = c.pessoa_id 
+left join tipos t  on c.tipo_id = t.id 
+where f.titulo = 'Psyco' and p.sexo = 'Masculino' and t.descricao = 'Atuação')

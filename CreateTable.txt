@@ -1,0 +1,55 @@
+create table Filmes(
+	id int,
+	titulo varchar(500),
+	ano int,
+	primary key (id)
+);
+  
+
+create rule TituloAno as on insert 
+	to Filmes where exists (select 1 from filmes f where (id = f.id and ano = f.ano))
+	do instead nothing ; 
+
+
+create table Pessoas(
+	id int,
+	nome varchar(500),
+	sexo varchar(50),
+	data_nasc date,
+	primary key(id)
+);
+
+create table Tipos(
+	id int,
+	descricao varchar(50),
+	primary key(id)
+);
+create table Creditos(
+	pessoa_id int,
+	filme_id int,
+	tipo_id int,
+	personagem varchar(100),
+	primary key (pessoa_id, filme_id, tipo_id),
+	foreign key (pessoa_id) references Pessoas(id),
+	foreign key (filme_id) references Filmes(id),
+	foreign key (tipo_id) references Tipos(id)
+);
+
+create table Generos(
+	id int,
+	descricao varchar(50),
+	primary key (id)
+);
+create table Genero_Filme(
+	filme_id int,
+	genero_id int,
+	primary key(filme_id, genero_id),
+	foreign key (filme_id) references Filmes(id),
+	foreign key (genero_id) references Generos(id)
+);
+create table Linguas(
+	filme_id int,
+	lingua varchar(50),
+	primary key(filme_id, lingua),
+	foreign key (filme_id) references Filmes(id)
+	);

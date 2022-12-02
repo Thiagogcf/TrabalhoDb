@@ -1,0 +1,111 @@
+insert into Pessoas (id, nome, sexo, data_nasc) 
+values
+(1, 'Quentin Jerome Tarantino', 'Masculino', '1963-03-27'),
+(2, 'Francis Ford Coppola', 'Masculino', '1939-04-07'),
+(3, 'Alfred Hitchcock', 'Masculino', '1899-08-13'),
+(4, 'Vera Miles', 'Feminino', '1929-08-23'),
+(5, 'Uma Thurman', 'Feminino', '1970-04-29'),
+(6, 'Nicolas Cage', 'Masculino', '1964-01-07'),
+(7, 'Seth Rogen', 'Masculino', '1982-04-15'),
+(8, 'Sean Anders', 'Masculino', '1969-05-23'),
+(9, 'Phil Lord', 'Masculino', '1975-07-12'),
+(10, 'Peter Farrelly', 'Masculino', '1956-12-17'),
+(11, 'James Franco', 'Masculino', '1978-04-19');
+
+insert into Filmes (id, titulo, ano)
+values
+(1, 'Psyco', 1960),
+(2, 'Vertigo', 1958),
+(3, 'Pulp Fiction', 1994),
+(4, 'Kill Bill: Vol. 1', 2003),
+(5, 'Peggy Sue Got Married', 1986),
+(6, 'The Godfather', 1972),
+(7, 'Os Croods', 2013),
+(8, 'Forest Gump', 1994),
+(9,'A Entrevista',2014),
+(10, 'Quero Matar meu Chefe 2', 2014),
+(11, 'Uma Aventura LEGO', 2014),
+(12, 'Debi & Lóide', 2014),
+(13, 'Alien: Covenatn', 2017),
+(14,'Sharknado 5: Global Swarming', 2017),
+(15, 'Sharktopus Contra Pteracuda', 2016);
+
+insert into tipos (id,descricao)
+values
+(1, 'Direção'),
+(2, 'Dublagem'),
+(3, 'Atuação');
+
+insert into creditos  (pessoa_id, filme_id, tipo_id, personagem)
+values
+(1, 3, 1, null),
+(1, 3, 3, 'Jimmie'),
+(1,4,1, null),
+(3,1,1, null),
+(3, 2, 1, null),
+(2, 6,1, null),
+(2,5,1, null),
+(4,1,3,'Lila Crane'),
+(4, 5, 3, null),
+(5,3,3,'Mia Wallace'),
+(5,4,3,'The Bride'),
+(7, 9, 1, null),
+(8, 10, 1, null),
+(9, 11, 1, null),
+(10, 12, 1, null),
+(11, 9, 3, 'Dave Skylark'),
+(11, 13, 3, 'Branson'),
+(11, 14, 3, 'Branson'),
+(6, 4, 3, 'nobody'),
+(11, 15, 3, 'Dr. Rico Symes');
+
+insert into linguas(filme_id,lingua)
+values
+(1, 'Alemão'),
+(1, 'Esperanto'),
+(1, 'Inglês'),
+(1, 'Português'),
+(2, 'Inglês'),
+(2, 'Frances'),
+(2, 'Português'),
+(3,  'Inglês'),
+(3,  'Frances'),
+(4,  'Inglês'),
+(4,  'Português'),
+(5,  'Inglês'),
+(5,  'Espanhol'),
+(6,  'Inglês'),
+(6,  'Português'),
+(7,  'Inglês'),
+(7,  'Português'),
+(8,  'Inglês'),
+(8,  'Russo');
+
+insert into generos (id,descricao)
+values
+(1, 'Ação'),
+(2, 'Comédia'),
+(3, 'Drama'),
+(4, 'Crime'),
+(5, 'Animação'),
+(6, 'Aventura'),
+(7, 'Terror'),
+(8, 'Mistério');
+
+
+insert into genero_filme  (filme_id , genero_id)
+values
+(3,4), (3,3),
+(4,1), (4,4),
+(5,2),
+(6,4), (6,3),
+(1,7),(1,8),
+(2,8),
+(7,2), (7,5), (7,6),
+(9,2),
+(10,2),
+(11,2),
+(12,2),
+(13,7),(13,1),
+(14,2), (14,7),(14,1),
+(15,1), (15,2);
